@@ -588,6 +588,7 @@ conn_loop(void)
                 break;
               case 3:
               case 4:
+              case 32:
                 tty.rxlen = 5 + tty.txbuf[5] * 2;
                 break;
               case 7:
@@ -661,6 +662,7 @@ conn_loop(void)
                 case 2:
                 case 3:
                 case 4:
+                case 32:
                   i = 5 + tty.rxbuf[tty.rxoffset + 2];
                   break;
                 default:
@@ -818,6 +820,7 @@ conn_loop(void)
                   case 4: /* Read Input Registers */
                   case 5: /* Force Single Coil */
                   case 6: /* Preset Single Register */
+                  case 32:
                   {
                     /* set data length for requests with fixed length */
                     conn_fix_request_header_len(curconn, 6);
