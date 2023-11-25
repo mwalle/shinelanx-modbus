@@ -734,6 +734,9 @@ conn_loop(void)
         }
         logw(9, "tty: response: %s", t);
 #endif
+        if (actconn->cmd32_xlate) {
+          tty.rxbuf[1] = 4;
+        }
         (void)memcpy((void *)(actconn->buf + HDRSIZE),
                      (void *)(tty.rxbuf + tty.rxoffset), tty.ptrbuf - CRCSIZE - tty.rxoffset);
         WORD_WR_BE(actconn->buf + MB_LENGTH_H, tty.ptrbuf - CRCSIZE - tty.rxoffset);
@@ -808,7 +811,15 @@ conn_loop(void)
               if (curconn->ctr >= MB_DATA)
               {
                 /* check request function code */
-                unsigned char fc = MB_FRAME(curconn->buf, MB_FCODE);
+                unsigned char fc;
+
+                if ((MB_FRAME(curconn->buf, MB_DATA_ADDR_H) & 0xf0) == 0xf0) {
+                  MB_FRAME(curconn->buf, MB_DATA_ADDR_H) &= ~0xf0;
+                  MB_FRAME(curconn->buf, MB_FCODE) = 32;
+                  curconn->cmd32_xlate = true;
+                }
+
+                fc = MB_FRAME(curconn->buf, MB_FCODE);
 #ifdef DEBUG
                 logw(7, "conn[%s]: read request fc %d", curconn->remote_addr, fc);
 #endif

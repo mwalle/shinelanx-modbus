@@ -108,6 +108,7 @@ typedef struct conn_t
   int ctr;              /* counter of data in the buffer */
   int read_len;         /* length of modbus frame to read */
   unsigned char buf[HDRSIZE + BUFSIZE];    /* data buffer */
+  bool cmd32_xlate;     /* proprietary read translation */
 } conn_t;
 
 /* prototypes */
