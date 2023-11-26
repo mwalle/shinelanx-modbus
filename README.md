@@ -78,8 +78,11 @@ has support for the ShineLAN-X board. As the time of this writing, the
 [pull request](https://github.com/devanlai/dapboot/pull/56) to get this
 upstream is still open.
 
-  make -C src TARGET=SHINELANX
-
+```
+git clone https://github.com/mwalle/dapboot
+cd dapboot
+make -C src TARGET=SHINELANX
+```
 ### Precompiled dapboot binary
 
 For your convenience, there is a pre-compiled binary in the
@@ -94,22 +97,26 @@ Dangerous Prototypes
 
 Contents of the openocd.cfg:
 
-  source [find interface/ftdi/dp_busblaster_kt-link.cfg]
-  transport select swd
-  source [find target/stm32f1x.cfg]
-  adapter speed 2000
+```
+source [find interface/ftdi/dp_busblaster_kt-link.cfg]
+transport select swd
+source [find target/stm32f1x.cfg]
+adapter speed 2000
+```
 
 Then you can program dapboot with the following command:
 
-  openocd -f openocd-swd.cfg \
-    -c "init" \
-    -c "reset halt" \
-    -c "flash protect 0 0 last off" \
-    -c "reset halt" \
-    -c "program dapboot.bin 0x08000000 verify" \
-    -c "flash protect 0 0 1 on" \
-    -c "reset run" \
-    -c "shutdown"
+```
+openocd -f openocd-swd.cfg \
+  -c "init" \
+  -c "reset halt" \
+  -c "flash protect 0 0 last off" \
+  -c "reset halt" \
+  -c "program dapboot.bin 0x08000000 verify" \
+  -c "flash protect 0 0 1 on" \
+  -c "reset run" \
+  -c "shutdown"
+```
 
 This will flash dapboot and protect the first two 4kB sectors from further
 programming. The protection is *not* permanent and can be reversed by using
@@ -132,10 +139,12 @@ the button while you plug in the adapter into your computer.
 Once plugged in, you'll start a new USB device on your computer and you can
 use `dfu-util` to download the `nuttx.bin` binary:
 
-  # list available devices
-  dfu-util -l
-  # download the image to the device
-  dfu-util -D nuttx.bin
+```
+# list available devices
+dfu-util -l
+# download the image to the device
+dfu-util -D nuttx.bin
+```
 
 This will download and automatically reset the device. If flashed
 correctly, the green LED should turn on, indicating that the application is
