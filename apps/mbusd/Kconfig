@@ -1,0 +1,32 @@
+#
+# For a description of the syntax of this configuration file,
+# see the file kconfig-language.txt in the NuttX tools repository.
+#
+
+config EXTERNAL_MBUSD
+	bool "Modbus TCP to Modbus RTU gateway"
+	default n
+	depends on NET_IPv4 || NET_IPv6
+	depends on NET_TCP
+	---help---
+		mbusd is open-source Modbus TCP to Modbus RTU (RS-232/485) gateway.
+		It presents a network of RTU slaves as single TCP slave.
+
+if EXTERNAL_MBUSD
+
+config EXTERNAL_MBUSD_PROGNAME
+	string "mbusd program name"
+	default "mbusd"
+	---help---
+		This is the name of the program that will be used when the NSH ELF
+		program is installed
+
+config EXTERNAL_MBUSD_PRIORITY
+	int "mbusd task priority"
+	default 100
+
+config EXTERNAL_MBUSD_STACKSIZE
+	int "mbusd stack size"
+	default DEFAULT_TASK_STACKSIZE
+
+endif
