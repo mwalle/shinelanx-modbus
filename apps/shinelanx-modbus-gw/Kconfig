@@ -1,0 +1,23 @@
+#
+# For a description of the syntax of this configuration file,
+# see the file kconfig-language.txt in the NuttX tools repository.
+#
+
+config EXTERNAL_SHINELANX_MODBUS_GW
+	bool "ShineLAN-X modbus gateway"
+	default n
+	depends on EXTERNAL_MBUSD
+	depends on NET_IPv4 || NET_IPv6
+	depends on NET_TCP
+
+if EXTERNAL_SHINELANX_MODBUS_GW
+
+config EXTERNAL_SHINELANX_MODBUS_GW_STACKSIZE
+	int "ShineLAN-X modbus gateway stack size"
+	default DEFAULT_TASK_STACKSIZE
+
+config EXTERNAL_SHINELANX_MODBUS_GW_PRIORITY
+	int "ShineLAN-X modbus gateway task priority"
+	default 100
+
+endif
