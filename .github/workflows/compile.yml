@@ -1,0 +1,56 @@
+name: ShineLAN-X compile job
+on: [push]
+env:
+  nuttx_ref: nuttx-12.2.1
+
+jobs:
+  Compile:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Install build dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get -y --no-install-recommends install gcc-arm-none-eabi libnewlib-arm-none-eabi libnewlib-dev kconfig-frontends
+
+      - name: Checkout shinelanx-modbus repo
+        uses: actions/checkout@v4
+        with:
+          path: external
+
+      - name: Checkout nuttx repo
+        uses: actions/checkout@v4
+        with:
+          repository: apache/nuttx
+          ref: ${{ env.nuttx_ref }}
+          path: nuttx
+          fetch-depth: 1
+
+      - name: Checkout apps repo
+        uses: actions/checkout@v4
+        with:
+          repository: apache/nuttx-apps
+          ref: ${{ env.nuttx_ref }}
+          path: apps
+          fetch-depth: 1
+
+      - name: Configure NuttX
+        run: |
+          ln -s ../external/apps apps/external
+          cd nuttx
+          tools/configure.sh -a ../apps ../external/board/shinelanx/configs/mbusd/
+
+      - name: Build ShineLAN-X Modbus gateway
+        run: |
+          cd nuttx
+          make -j$(nproc)
+
+      - name: Upload resulting binaries
+        uses: actions/upload-artifact@v3
+        with:
+          name: shinelanx-modbus-gw
+          path: |
+            nuttx/nuttx
+            nuttx/nuttx.bin
+            nuttx/nuttx.hex
+            nuttx/nuttx.map
+            nuttx/System.map
