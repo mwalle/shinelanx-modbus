@@ -1,5 +1,10 @@
 name: ShineLAN-X compile job
-on: [push]
+on:
+  push:
+    paths-ignore:
+      - 'contrib/**'
+      - README.md
+
 env:
   nuttx_ref: nuttx-12.2.1
 
