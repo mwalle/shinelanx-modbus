@@ -207,6 +207,19 @@ make olddefconfig
 make -j$(nproc)
 ```
 
+## Proprietary commands support
+
+Some inverter support command 32 (20h) which acts just like the *Read Input
+Register* command, but to access a different address space. The arguments
+and response is the exactly the same as command 4. This is usually used to
+read the regsiters connected smart meter.
+
+Because most Modbus clients don't support custom commands, the firmware
+will remap addresses from F000h to FFFFh to this command. Keep in mind that
+this means, that the largest register you can read with the normal *Read
+Input Register* is EFFFh and the largest register you can read with the
+proprietary command is 0FFFh.
+
 ## Licenses
 
 Different parts of this repository are goverened by different licenses:
