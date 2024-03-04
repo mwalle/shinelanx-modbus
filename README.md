@@ -252,6 +252,27 @@ The SoC has the following connection to its peripherals:
 | PA13 | SWDIO              | SWDIO              |
 | PA14 | SWCLK              | SWCLK              |
 
+# Inverter Support
+
+This alternative firmware was tested successfully with the following
+inverters.
+
+## (TBD) MOD-7000 with HV battery ARK-...
+
+The original firmware will poll the follwing registers of the inverter:
+
+* Holding Registers from 0h to 124h
+* Holding Registers from 3000h to 3xxxh
+* Input Registers from 3000h to 3xxxh
+
+Additionally, the Growatt server and ShinePhone app will write to the
+following (undocumented) registers:
+
+| Number | Description | Values |
+| --- | --- | --- |
+| Holding Registers | |
+| 533 | Connected Smart Meter | |
+
 ## Licenses
 
 Different parts of this repository are goverened by different licenses:
