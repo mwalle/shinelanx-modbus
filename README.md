@@ -220,6 +220,38 @@ this means, that the largest register you can read with the normal *Read
 Input Register* is EFFFh and the largest register you can read with the
 proprietary command is 0FFFh.
 
+## ShineLAN-X I/O connections
+
+The SoC has the following connection to its peripherals:
+
+|  Pin | Alternate Function | Connection         |
+| ---- | ------------------ | ------------------ |
+| PD0  | OSC_IN             | 8MHz crystal       |
+| PD1  | OSC_OUT            | 8MHz crystal       |
+| PA3  | -                  | BUTTON#            |
+| PA4  | SPI1_NSS           | SPI Flash CS       |
+| PA5  | SPI1_SCK           | SPI Flash SCLK     |
+| PA6  | SPI1_MISO          | SPI Flash SO       |
+| PA7  | SPI1_MOSI          | SPI Flash SI       |
+| PC4  | -                  | SPI Flash WP#      |
+| PC5  | -                  | RGB LED (blue)     |
+| PB0  | -                  | RGB LED (green)    |
+| PB1  | -                  | RGB LED (red)      |
+| PB12 | -                  | ENC28J60 CS#       |
+| PB13 | -                  | ENC28J60 SCK       |
+| PB14 | -                  | ENC28J60 SO        |
+| PB15 | -                  | ENC28J60 SI        |
+| PC6  | -                  | ENC28J60 INT#      |
+| PC7  | -                  | Blue LED           |
+| PC8  | -                  | ENC28J60 RST#      |
+| PA8  | -                  | USB re-enumeration |
+| PA9  | USART1_TX          | TXD1               |
+| PA10 | USART1_RX          | RXD1               |
+| PA11 | USB_D-             | RXD1               |
+| PA12 | USB_D+             | RXD1               |
+| PA13 | SWDIO              | SWDIO              |
+| PA14 | SWCLK              | SWCLK              |
+
 ## Licenses
 
 Different parts of this repository are goverened by different licenses:
