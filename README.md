@@ -63,13 +63,14 @@ serving the button etc. and finally starting the mbusd.
 
 ## USB DFU Loader
 
-The external USB port is directly connected to the SoC and therefore, we
-can use it to program the flash without disassembling the whole adapter
-again. We use [dapboot](https://github.com/devanlai/dapboot) which resides
-in the first 8kB of the flash and implements the DFU protocol.
+We use [dapboot](https://github.com/devanlai/dapboot) which resides in
+the first 8kB of the flash and implements the DFU protocol to update the
+board. Unfortunately, to do this, you have to disassemble the board once
+and use the SWD debug header to initially program dapboot. Afterwards,
+this bootloader can then be used to program flash through the external
+USB port. Therefore, once the bootloader is programmed, you don't have
+to disassemble the adapter ever again.
 
-Unfortunately, you'll need to use the SWD debugging header to initially
-program dapboot.
 
 ### Compiling dapboot
 
@@ -90,10 +91,10 @@ For your convenience, there is a pre-compiled binary in the
 
 ### Flashing dapboot
 
-You'll need a SWD debug probe to connect to the board. I'll be using the
-Dangerous Prototypes
-[BusBlaster](http://dangerousprototypes.com/docs/Bus_Blaster) with
-[openocd](https://openocd.org/).
+You'll need an SWD debug probe to connect to the board. The board can be
+powered by the USB port while you flash it. I'll be using the Dangerous
+Prototypes [BusBlaster](http://dangerousprototypes.com/docs/Bus_Blaster)
+with [openocd](https://openocd.org/).
 
 Contents of the openocd.cfg:
 
