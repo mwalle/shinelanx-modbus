@@ -162,8 +162,8 @@ pecularities. Esp. there are hardcoded paths in the board defconfig,
 therefore, you have to use the exact paths as shown below.
 
 ```
-git clone -b nuttx-12.3.0 --depth 1 https://github.com/apache/nuttx.git
-git clone -b nuttx-12.3.0 --depth 1 https://github.com/apache/nuttx-apps.git apps
+git clone -b nuttx-12.2.1 --depth 1 https://github.com/apache/nuttx.git
+git clone -b nuttx-12.2.1 --depth 1 https://github.com/apache/nuttx-apps.git apps
 git clone https://github.com/mwalle/shinelanx-modbus.git external
 
 ln -s ../external/apps apps/external
