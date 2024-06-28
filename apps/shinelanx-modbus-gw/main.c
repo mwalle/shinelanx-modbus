@@ -152,7 +152,7 @@ int main(int argc, FAR char *argv[])
 #endif
 
 	/* XXX wait until ttyACM is available */
-	sleep(1);
+	sleep(10);
 
 	mbusd_main(nitems(mbusd_main_args), mbusd_main_args);
 
